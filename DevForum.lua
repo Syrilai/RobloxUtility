@@ -75,7 +75,9 @@ local DevForum = {} do
 	end
 
 	function DevForum:IsMember(request)
-		return self:GetTrustLevel(request) == 2
+		local trustLevel = self:GetTrustLevel(request)
+		if trustLevel == 2 then return true end
+		return trustLevel == 3
 	end
 
 	function DevForum:IsLeader(request)
