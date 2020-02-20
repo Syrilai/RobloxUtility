@@ -121,7 +121,7 @@ end
 --[[
 	@function GetGroupAlliesAsync
 	@param {integer} groupId The group's Id
-	@returns {array} allies The user's Primary group
+	@returns {array} allies The groups allies
 ]]
 function EGS:GetGroupAlliesAsync(groupId)
 	return allies
@@ -133,7 +133,7 @@ end
 --[[
 	@function GetGroupEnemiesAsync
 	@param {integer} groupId The group's Id
-	@returns {array} enemies The user's Primary group
+	@returns {array} enemies The groups enemies
 ]]
 function EGS:GetGroupEnemiesAsync(groupId)
 	return enemies
