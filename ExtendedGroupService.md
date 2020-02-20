@@ -96,9 +96,72 @@ end
 	@function IsInGroupAsync
 	@param {request} request The player's name, userId or object.
 	@param {integer} groupId The group's Id
-	@returns {bool} isInGroup The user's Primary group
+	@returns {bool} isInGroup If the user is in the group
 ]]
 function EGS:IsInGroupAsync(request, groupId)
 	return isInGroup
+end
+```
+
+### `EGS:IsPrimaryGroupAsync()`
+```lua
+--[[
+	@function IsPrimaryGroupAsync
+	@param {request} request The player's name, userId or object.
+	@param {integer} groupId The group's Id
+	@returns {bool} isPrimary The user's Primary group
+]]
+function EGS:IsPrimaryGroupAsync(request, groupId)
+	return isPrimary
+end
+```
+
+### `EGS:GetGroupAlliesAsync()`
+```lua
+--[[
+	@function GetGroupAlliesAsync
+	@param {integer} groupId The group's Id
+	@returns {array} allies The user's Primary group
+]]
+function EGS:GetGroupAlliesAsync(groupId)
+	return allies
+end
+```
+
+### `EGS:GetGroupEnemiesAsync()`
+```lua
+--[[
+	@function GetGroupEnemiesAsync
+	@param {integer} groupId The group's Id
+	@returns {array} enemies The user's Primary group
+]]
+function EGS:GetGroupEnemiesAsync(groupId)
+	return enemies
+end
+```
+
+### `EGS:IsGroupAlly()`
+```lua
+--[[
+	@function IsGroupAlly
+	@param {integer} groupId The group's Id
+	@param {integer} allyGroupId The ally's group's Id
+	@returns {bool} isAlly If the two groups are allied
+]]
+function EGS:IsGroupAlly(request, groupId)
+	return isAlly
+end
+```
+
+### `EGS:IsGroupEnemy()`
+```lua
+--[[
+	@function IsGroupEnemy
+	@param {integer} groupId The group's Id
+	@param {integer} enemyGroupId The ally's group's Id
+	@returns {bool} isEnemy If the two groups are allied
+]]
+function EGS:IsGroupEnemy(request, groupId)
+	return isEnemy
 end
 ```
