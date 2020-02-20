@@ -37,7 +37,7 @@ local GroupService = {} do
 		return GroupAllies or {}
 	end
 
-	function GroupService:GetEnemiesAsync(GroupID)
+	function GroupService:GetGroupEnemiesAsync(GroupID)
 		local Success, GroupEnemiesPages = pcall(Service.GetEnemiesAsync, Service, GroupID)
 		local GroupEnemies = Success and GroupEnemiesPages and PagesToArray(GroupEnemiesPages)
 		return GroupEnemies or {}
