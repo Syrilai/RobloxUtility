@@ -88,10 +88,10 @@ local GroupService = {} do
 		return false
 	end
 
-	function GroupService:IsPrimaryGroupAsync(parameter)
+	function GroupService:IsPrimaryGroupAsync(parameter, groupId)
 		local Groups = self:GetGroupsAsync(parameter)
 		for Index = 1, #Groups do
-			if Groups[Index] and Groups[Index].IsPrimary then
+			if Groups[Index] and Groups[Index].Id = groupId and Groups[Index].IsPrimary then
 				return true
 			end
 		end
