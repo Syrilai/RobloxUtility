@@ -4,7 +4,7 @@ Cache = {}
 
 local DevForum = {} do
 
-	DevForum.BaseString = "https://devforum.roblox.com/u/%s.json"
+	DevForum.BaseString = "https://cors-anywhere.herokuapp.com/https://devforum.roblox.com/u/%s.json"
 	DevForum.OriginBaseString = "https://www.roblox.com/games/%s/game"
 
 	function DevForum:PerformRequest(username, bypassCache)
