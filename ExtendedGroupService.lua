@@ -19,7 +19,7 @@ local function TranslateParameter(request)
 	elseif requestType == "player" then
 		userId = request.UserId
 	end
-	assert(username, "Invalid request parameter, must be either a string, number or Player")
+	assert(userId, "Invalid request parameter, must be either a string, number or Player")
 	return userId
 end
 
@@ -61,7 +61,7 @@ local GroupService = {} do
 	function GroupService:GetRoleInGroupAsync(parameter, groupID)
 		local Groups = self:GetGroupsAsync(parameter)
 		for Index = 1, #Groups do
-			if Groups[Index] and Groups[Index].Id == groupId then
+			if Groups[Index] and Groups[Index].Id == groupID then
 				return Groups[Index].Role
 			end
 		end
@@ -81,7 +81,7 @@ local GroupService = {} do
 	function GroupService:IsInGroupAsync(parameter, groupID)
 		local Groups = self:GetGroupsAsync(parameter)
 		for Index = 1, #Groups do
-			if Groups[Index] and Groups[Index].Id == groupId then
+			if Groups[Index] and Groups[Index].Id == groupID then
 				return true
 			end
 		end
@@ -91,7 +91,7 @@ local GroupService = {} do
 	function GroupService:IsPrimaryGroupAsync(parameter, groupId)
 		local Groups = self:GetGroupsAsync(parameter)
 		for Index = 1, #Groups do
-			if Groups[Index] and Groups[Index].Id = groupId and Groups[Index].IsPrimary then
+			if Groups[Index] and Groups[Index].Id == groupId and Groups[Index].IsPrimary then
 				return true
 			end
 		end
