@@ -1,3 +1,5 @@
+Warning: This documentation may be outdated.
+
 # ExtendedGroupService Module: API Documentation
 ## Module Information
 The module has 11 functions in total right now, `:GetGroupsAsync()`, `:GetGroupInfoAsync()`, `:GetRankInGroup()`, `:GetRoleInGroupAsync()`, `:GetPrimaryGroupAsync()`, `:IsInGroupAsync()`, `:IsPrimaryGroupAsync()`, `:GetGroupAlliesAsync()`, `:GetEnemiesAsync()`, `:IsGroupAlly()` and `:IsGroupEnemy()`.
