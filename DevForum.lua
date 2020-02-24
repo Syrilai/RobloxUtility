@@ -4,38 +4,57 @@ Cache = {}
 
 local DevForum = {} do
 
-	DevForum.BaseString = "https://devforum.roblox.com/u/%s.json"
+	DevForum.BaseString = "https://cors-anywhere.herokuapp.com/https://devforum.roblox.com/u/%s.json"
 	DevForum.OriginBaseString = "https://www.roblox.com/games/%s/game"
+
+	function DevForum:nullify(tbl)
+		for i,v in pairs(tbl) do
+			if typeof(v) == "number" then
+				tbl[i] = 0
+			elseif typeof(v) == "string" then
+				tbl[i] = ""
+			elseif typeof(v) == "boolean" then
+				tbl[i] = false
+			elseif typeof(v) == "table" then
+				tbl[i] = self:nullify(tbl[i])
+			else
+				tbl[i] = nil
+			end
+		end
+		return tbl
+	end
 
 	function DevForum:PerformRequest(username, bypassCache)
 		if Cache[username] and not bypassCache then return Cache[username] end
 		local url = string.format(self.BaseString, username)
-		local response = HttpService:RequestAsync(
-			url,
-			'GET',
-			{
+		local response = HttpService:RequestAsync({
+			Url = url,
+			Method = 'GET',
+			Headers = {
 				['Origin'] = string.format(self.OriginBaseString, game.PlaceId),
 				['X-Requested-With'] = string.format(self.OriginBaseString, game.PlaceId)
 			}
-		)
+		})
 		if response.Success then
 			Cache[username] = HttpService:JSONDecode(response.Body)
 			return Cache[username]
 		else
-			if Cache['system'] then
-				return Cache['system']
+			if Cache['__fallback'] then
+				return Cache['__fallback']
 			end
-			local rawResponse = HttpService:RequestAsync(
-				string.format(self.BaseString, 'system'),
-				'GET',
-				{
+			local rawResponse = HttpService:RequestAsync({
+				Url = string.format(self.BaseString, 'system'),
+				Method = 'GET',
+				Headers = {
 					['Origin'] = string.format(self.OriginBaseString, game.PlaceId),
 					['X-Requested-With'] = string.format(self.OriginBaseString, game.PlaceId)
 				}
-			)
+			})
 			if rawResponse.Success then
-				Cache['system'] = HttpService:JSONDecode(rawResponse.Body);
-				return Cache['system']
+				local decoded = HttpService:JSONDecode(rawResponse.Body)
+				decoded = self:nullify(decoded)
+				Cache['__fallback'] = decoded
+				return Cache['__fallback']
 			end
 		end
 		error(string.format("DevForum:PerformRequest() could not fetch user data, username = '%s'", username))
@@ -66,8 +85,9 @@ local DevForum = {} do
 		local groups = self:GetGroups(request)
 		local keyToCheck = typeof(param) == "number" and "id" or "name"
 		for i,v in pairs(groups) do
-			if v[keyToCheck] == param then return v end
+			if v[keyToCheck] == param then return true, v end
 		end
+		return false, nil
 	end
 
 	function DevForum:IsNewMember(request)
