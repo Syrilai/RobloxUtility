@@ -4,6 +4,7 @@ Cache = {}
 
 local DevForum = {} do
 
+	DevForum.Version = "1.1"
 	DevForum.BaseString = "https://cors-anywhere.herokuapp.com/https://devforum.roblox.com/u/%s.json"
 	DevForum.OriginBaseString = "https://www.roblox.com/games/%s/game"
 
@@ -107,7 +108,17 @@ local DevForum = {} do
 	function DevForum:IsInForum(request)
 		return self:GetTrustLevel(request) >= 1
 	end
+end
 
+local UpdateChecker
+local data, err = pcall(function()
+	return HttpService:JSONDecode(HttpService:GetAsync("https://raw.githubusercontent.com/RealSimplyData/RobloxUtility/master/UpdateChecker.json"))
+end)
+if UpdateChecker and UpdateChecker["DevForum"] then
+	if UpdateChecker.DevForum ~= DevForum.Version then
+		warn("DevForum has a new version: " .. UpdateChecker.DevForum)
+		warn("Module is running on: " .. DevForum.Version)
+	end
 end
 
 return DevForum
