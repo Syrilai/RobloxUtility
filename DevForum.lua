@@ -90,11 +90,11 @@ local DevForum = {} do
 		return false, nil
 	end
 
-	function DevForum:IsNewMember(request)
+	function DevForum:IsMember(request)
 		return self:GetTrustLevel(request) == 1
 	end
 
-	function DevForum:IsMember(request)
+	function DevForum:IsRegular(request)
 		local trustLevel = self:GetTrustLevel(request)
 		if trustLevel == 2 then return true end
 		return trustLevel == 3
