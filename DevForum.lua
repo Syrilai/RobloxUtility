@@ -111,14 +111,18 @@ local DevForum = {} do
 end
 
 local UpdateChecker
-local data, err = pcall(function()
+local err, data = pcall(function()
 	return HttpService:JSONDecode(HttpService:GetAsync("https://raw.githubusercontent.com/RealSimplyData/RobloxUtility/master/UpdateChecker.json"))
 end)
+UpdateChecker = data
 if UpdateChecker and UpdateChecker["DevForum"] then
 	if UpdateChecker.DevForum ~= DevForum.Version then
 		warn("DevForum has a new version: " .. UpdateChecker.DevForum)
 		warn("Module is running on: " .. DevForum.Version)
 	end
+else
+	warn("Update Checker could not run!")
+	warn(err)
 end
 
 return DevForum
