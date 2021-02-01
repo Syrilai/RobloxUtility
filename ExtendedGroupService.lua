@@ -48,7 +48,7 @@ local GroupService = {} do
 		return Success and GroupInfo or { }
 	end
 	
-	function GroupService:GetRankInGroup(parameter, groupId)
+	function GroupService:GetRankInGroupAsync(parameter, groupId)
 		local Groups = self:GetGroupsAsync(parameter)
 		for Index = 1, #Groups do
 			if Groups[Index] and Groups[Index].Id == groupId then
